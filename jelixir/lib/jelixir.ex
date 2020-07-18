@@ -7,6 +7,7 @@ defmodule Jelixir do
 
     with {:ok, node_result} <- Poison.Parser.parse!(json_string) |> travel(name) do
       create_schema(name, node_result)
+      create_migration(name, node_result)
     end
   end
 
@@ -38,7 +39,7 @@ defmodule Jelixir do
 
     file_name = "#{schema_name}.ex"
 
-    with {:ok, content} <- File.read("template.txt") do
+    with {:ok, content} <- File.read("schema_template.txt") do
       all_fileds_string =
         node_result
         |> Map.to_list()
@@ -52,6 +53,28 @@ defmodule Jelixir do
 
       save(file_name, new_content)
     end
+  end
+
+  def create_migration(name, node_result) do
+    schema_name = String.downcase(name)
+    file_name = "create_#{schema_name}.ex"
+    capitalize_module_name = schema_name |> String.capitalize()
+
+    with {:ok, content} <- File.read("migration_template.txt") do
+      all_fileds_string =
+        node_result
+        |> Map.to_list()
+        |> Enum.reduce("", fn {k, v}, lines -> lines <> "add :#{k}, #{v} \n" end)
+
+      new_content =
+        content
+        |> String.replace("capitalize_module_name", capitalize_module_name)
+        |> String.replace("schema_name", schema_name)
+        |> String.replace("ALL_FIEDS", all_fileds_string)
+
+      save(file_name, new_content)
+    end
+
   end
 
   def save(name, content) do

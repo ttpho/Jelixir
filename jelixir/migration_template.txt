@@ -1,0 +1,11 @@
+defmodule REPO_NAME.Migrations.Createcapitalize_module_nameTable do
+  use Ecto.Migration
+
+  def change do
+    create table("schema_name") do
+      ALL_FIEDS
+
+      timestamps()
+    end
+  end
+end
