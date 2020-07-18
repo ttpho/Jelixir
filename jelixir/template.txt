@@ -1,0 +1,7 @@
+defmodule capitalize_module_name do
+  use Ecto.Schema
+
+  schema "schema_name" do
+    ALL_FIEDS
+  end
+end
