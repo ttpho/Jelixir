@@ -17,7 +17,7 @@
 
 
 ### Ouput
-Created schema file: `book.ex`
+- Created schema file: `book.ex`
 
 ```ex
 defmodule Book do
@@ -29,6 +29,26 @@ defmodule Book do
     field(:price, :integer)
     field(:publisher, :string)
     field(:title, :string)
+  end
+end
+```
+
+- Created migration file: `create_book.ex`
+
+```ex
+defmodule REPO_NAME.Migrations.CreateBookTable do
+  use Ecto.Migration
+
+  def change do
+    create table("book") do
+      add(:code, :string)
+      add(:edition, :string)
+      add(:price, :integer)
+      add(:publisher, :string)
+      add(:title, :string)
+
+      timestamps()
+    end
   end
 end
 ```
