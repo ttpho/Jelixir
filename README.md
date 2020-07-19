@@ -1,7 +1,7 @@
 # elixir-json-conver
 
 ### Input 
-- Json content
+- Json content: `book.json`
 
 ```json
 {
@@ -13,7 +13,7 @@
 }
 ```
 
-- File name : `book`
+- cmd : `iex> Jelixir.conver "book.json"`
 
 
 ### Ouput
