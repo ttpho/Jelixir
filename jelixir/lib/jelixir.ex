@@ -1,17 +1,15 @@
 defmodule Jelixir do
-  def hello do
-    json_string =
-      ~s({"code":"PPP12","edition":"2st","price":23000,"publisher":"NXBGD","title":"Toán học cao cấp"})
+  def conver(file_name_string) do
+    with {:ok, json_string} <- read_file(file_name_string) do
+      name = String.split(file_name_string, ".") |> hd
 
-    name = "book"
-
-    with {:ok, node_result} <- Poison.Parser.parse!(json_string) |> travel(name) do
-      create_schema(name, node_result)
-      create_migration(name, node_result)
+      with {:ok, node_result} <- Poison.Parser.parse!(json_string) |> travel(name) do
+        create_schema(name, node_result)
+        create_migration(name, node_result)
+      end
     end
   end
 
-  # https://hexdocs.pm/ecto/Ecto.Schema.html
   def get_type(v) do
     cond do
       is_map(v) -> "{:array, :map}"
@@ -74,12 +72,19 @@ defmodule Jelixir do
 
       save(file_name, new_content)
     end
-
   end
 
   def save(name, content) do
     {:ok, file} = File.open(name, [:write])
     IO.binwrite(file, content)
     File.close(file)
+  end
+
+  def read_file(file_name_string) do
+    if file_name_string |> String.ends_with?(".json") do
+      File.read(file_name_string)
+    else
+      {:error, "It is not json file extension"}
+    end
   end
 end
