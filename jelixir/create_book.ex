@@ -8,7 +8,6 @@ defmodule REPO_NAME.Migrations.CreateBookTable do
       add(:price, :integer)
       add(:publisher, :string)
       add(:title, :string)
-
       timestamps()
     end
   end

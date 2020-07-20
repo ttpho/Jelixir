@@ -3,8 +3,7 @@ defmodule REPO_NAME.Migrations.Createcapitalize_module_nameTable do
 
   def change do
     create table("schema_name") do
-      ALL_FIEDS
-
+ALL_FIEDS
       timestamps()
     end
   end
