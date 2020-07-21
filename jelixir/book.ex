@@ -6,6 +6,6 @@ defmodule Book do
 		field(:edition, :string)
 		field(:price, :integer)
 		field(:publisher, :string)
-		field(:title, :string)
+		field(:title, :string) 
   end
 end
