@@ -1,4 +1,70 @@
+defmodule JelixirItem do
+  defstruct name: "", type: "", value: %{}
+end
+
 defmodule Jelixir do
+  def demo() do
+    json_string = ~s({ "employee":{ "name":"John", "age":30, "city":"New York" } })
+
+    name = "demo"
+
+    with {:ok, node_result} <- Poison.Parser.parse!(json_string) |> demo_travel() do
+      node_result |> Enum.each(fn item -> IO.inspect(item) end)
+    end
+  end
+
+  def demo_create_schema(name, node_result) do
+    schema_name = String.downcase(name)
+    capitalize_module_name = schema_name |> String.capitalize()
+
+    file_name = "#{schema_name}.ex"
+
+    with {:ok, content} <- File.read("schema_template.txt") do
+      list = node_result
+      {last_item_key, _} = List.last(list)
+
+      all_fileds_string =
+        list
+        |> Enum.reduce("", fn {k, v}, lines ->
+          lines <>
+            ~s(\t\tfield\(:#{k}, #{v}\)) <>
+            if last_item_key == k do
+              ""
+            else
+              "\n"
+            end
+        end)
+
+      new_content =
+        content
+        |> String.replace("capitalize_module_name", capitalize_module_name)
+        |> String.replace("schema_name", schema_name)
+        |> String.replace("ALL_FIEDS", all_fileds_string)
+
+      save(file_name, new_content)
+    end
+  end
+
+  def demo_travel(node) do
+    if is_map(node) do
+      IO.inspect(node)
+
+      list_filed =
+        node
+        |> Enum.map(fn {k, v} ->
+          %JelixirItem{
+            name: k,
+            type: get_type(v),
+            value: Map.fetch!(node, k)
+          }
+        end)
+
+      {:ok, list_filed}
+    else
+      {:error, "todo implement"}
+    end
+  end
+
   def conver(file_name_string) do
     with {:ok, json_string} <- read_file(file_name_string) do
       name = String.split(file_name_string, ".") |> hd
@@ -19,7 +85,7 @@ defmodule Jelixir do
 
   def get_type(v) do
     cond do
-      is_map(v) -> "{:array, :map}"
+      is_map(v) -> ":map"
       is_integer(v) -> ":integer"
       is_binary(v) -> ":string"
     end
