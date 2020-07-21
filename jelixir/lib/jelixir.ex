@@ -43,31 +43,29 @@ defmodule Jelixir do
     capitalize_module_name = schema_name |> String.capitalize()
 
     file_name = "#{schema_name}.ex"
+    list = node_result |> Map.to_list()
+    {last_item_key, _} = List.last(list)
 
-    with {:ok, content} <- File.read("schema_template.txt") do
-      list = node_result |> Map.to_list()
-      {last_item_key, _} = List.last(list)
+    all_fileds_string =
+      list
+      |> Enum.reduce("", fn {k, v}, lines ->
+        lines <>
+          ~s(\t\tfield\(:#{k}, #{v}\)) <>
+          if last_item_key == k do
+            ""
+          else
+            "\n"
+          end
+      end)
 
-      all_fileds_string =
-        list
-        |> Enum.reduce("", fn {k, v}, lines ->
-          lines <>
-            ~s(\t\tfield\(:#{k}, #{v}\)) <>
-            if last_item_key == k do
-              ""
-            else
-              "\n"
-            end
-        end)
+    new_content =
+      EEx.eval_file("schema_template.eex",
+        capitalize_module_name: capitalize_module_name,
+        schema_name: schema_name,
+        all_fileds_string: all_fileds_string
+      )
 
-      new_content =
-        content
-        |> String.replace("capitalize_module_name", capitalize_module_name)
-        |> String.replace("schema_name", schema_name)
-        |> String.replace("ALL_FIEDS", all_fileds_string)
-
-      save(file_name, new_content)
-    end
+    save(file_name, new_content)
   end
 
   def create_migration(name, node_result) do
@@ -75,30 +73,29 @@ defmodule Jelixir do
     file_name = "create_#{schema_name}.ex"
     capitalize_module_name = schema_name |> String.capitalize()
 
-    with {:ok, content} <- File.read("migration_template.txt") do
-      list = node_result |> Map.to_list()
-      {last_item_key, _} = List.last(list)
+    list = node_result |> Map.to_list()
+    {last_item_key, _} = List.last(list)
 
-      all_fileds_string =
-        list
-        |> Enum.reduce("", fn {k, v}, lines ->
-          lines <>
-            ~s(\t\t\tadd\(:#{k}, #{v}\)) <>
-            if last_item_key == k do
-              ""
-            else
-              "\n"
-            end
-        end)
+    all_fileds_string =
+      list
+      |> Enum.reduce("", fn {k, v}, lines ->
+        lines <>
+          ~s(\t\t\tadd\(:#{k}, #{v}\)) <>
+          if last_item_key == k do
+            ""
+          else
+            "\n"
+          end
+      end)
 
-      new_content =
-        content
-        |> String.replace("capitalize_module_name", capitalize_module_name)
-        |> String.replace("schema_name", schema_name)
-        |> String.replace("ALL_FIEDS", all_fileds_string)
+    new_content =
+      EEx.eval_file("migration_template.eex",
+        capitalize_module_name: capitalize_module_name,
+        schema_name: schema_name,
+        all_fileds_string: all_fileds_string
+      )
 
-      save(file_name, new_content)
-    end
+    save(file_name, new_content)
   end
 
   def save(name, content) do

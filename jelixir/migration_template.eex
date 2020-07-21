@@ -1,0 +1,10 @@
+defmodule REPO_NAME.Migrations.Create<%=capitalize_module_name%>Table do
+  use Ecto.Migration
+
+  def change do
+    create table("<%=schema_name%>") do
+<%=all_fileds_string%>
+      timestamps()
+    end
+  end
+end
