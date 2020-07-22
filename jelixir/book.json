@@ -3,5 +3,7 @@
   "edition": "2st",
   "price": 23000,
   "publisher": "NXBGD",
-  "title": "Toán học cao cấp"
+  "title": "Toán học cao cấp",
+  "createdAt": "2020/11/29",
+  "updatedAt": "2020/11/29"
 }
