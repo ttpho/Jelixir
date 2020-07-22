@@ -34,7 +34,7 @@ defmodule Jelixir do
     if is_map(node) do
       list_filed =
         node
-        |> Enum.map(fn {k, v} -> {k, get_type(v)} end)
+        |> Enum.map(fn {k, v} -> {filed_name(k), get_type(v)} end)
         |> Enum.into(%{})
 
       {:ok, list_filed}
@@ -115,5 +115,21 @@ defmodule Jelixir do
     else
       {:error, "It is not json file extension"}
     end
+  end
+
+  # test:
+  # iex> Jelixir.filed_name("createdAt") == "created_at"
+  # true
+  defp filed_name(name) do
+    name
+    |> String.graphemes()
+    |> Enum.reduce("", fn x, acc ->
+      acc <>
+        if x == String.upcase(x) do
+          "_#{String.downcase(x)}"
+        else
+          x
+        end
+    end)
   end
 end
