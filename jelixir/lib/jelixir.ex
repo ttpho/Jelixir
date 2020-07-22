@@ -1,12 +1,16 @@
 defmodule Jelixir do
   def conver(file_name_string) do
-    with {:ok, json_string} <- read_file(file_name_string) do
-      name = String.split(file_name_string, ".") |> hd
-
-      with {:ok, node_result} <- Poison.Parser.parse!(json_string) |> travel() do
-        create_schema(name, node_result)
-        create_migration(name, node_result)
-      end
+    with {:read_file_result, {:ok, json_string}} <-
+           {:read_file_result, read_file(file_name_string)},
+         {:name_result, name} <- {:name_result, String.split(file_name_string, ".") |> hd},
+         {:node_status, {:ok, node_result}} <-
+           {:node_status, Poison.Parser.parse!(json_string) |> travel()} do
+      create_schema(name, node_result)
+      create_migration(name, node_result)
+    else
+      {:read_file_result, _} -> IO.inspect("Can't read file with name: #{file_name_string}")
+      {:name_result, _} -> IO.inspect("Can't parse file with name: #{file_name_string}")
+      {:node_status, _} -> IO.inspect("Can't parse Json file")
     end
   end
 
@@ -22,6 +26,7 @@ defmodule Jelixir do
       is_map(v) -> "{:array, :map}"
       is_integer(v) -> ":integer"
       is_binary(v) -> ":string"
+      true -> ":string"
     end
   end
 
