@@ -1,0 +1,36 @@
+# Generates a context with functions around an Ecto schema.
+# https://hexdocs.pm/phoenix/Mix.Tasks.Phx.Gen.Context.html#content
+
+mix phx.gen.context ModuleBook Book book \
+		code:string \
+		createdAt:string \
+		edition:string \
+		price:integer \
+		publisher:string \
+		title:string \
+		updatedAt:string
+
+# Generates controller, views, and context for an HTML resource. 
+# https://hexdocs.pm/phoenix/Mix.Tasks.Phx.Gen.Html.html#content
+
+mix phx.gen.html ModuleBook Book book \
+		code:string \
+		createdAt:string \
+		edition:string \
+		price:integer \
+		publisher:string \
+		title:string \
+		updatedAt:string
+
+# Generates controller, views, and context for a JSON resource.
+# https://hexdocs.pm/phoenix/Mix.Tasks.Phx.Gen.Json.html#content
+
+mix phx.gen.json ModuleBook Book book \
+		code:string \
+		createdAt:string \
+		edition:string \
+		price:integer \
+		publisher:string \
+		title:string \
+		updatedAt:string
+

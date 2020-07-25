@@ -1,0 +1,18 @@
+# Generates a context with functions around an Ecto schema.
+# https://hexdocs.pm/phoenix/Mix.Tasks.Phx.Gen.Context.html#content
+
+mix phx.gen.context Module<%=capitalize_module_name%> <%=capitalize_module_name%> <%=schema_name%> \
+<%=all_fileds_string%>
+
+# Generates controller, views, and context for an HTML resource. 
+# https://hexdocs.pm/phoenix/Mix.Tasks.Phx.Gen.Html.html#content
+
+mix phx.gen.html Module<%=capitalize_module_name%> <%=capitalize_module_name%> <%=schema_name%> \
+<%=all_fileds_string%>
+
+# Generates controller, views, and context for a JSON resource.
+# https://hexdocs.pm/phoenix/Mix.Tasks.Phx.Gen.Json.html#content
+
+mix phx.gen.json Module<%=capitalize_module_name%> <%=capitalize_module_name%> <%=schema_name%> \
+<%=all_fileds_string%>
+
