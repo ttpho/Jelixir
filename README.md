@@ -1,14 +1,14 @@
 # Jelixir
-convert JSON content to elixir files:
-- schema file
+Convert JSON content to elixir files:
+- Schema file
 
-[example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/book.ex)
-- migration file
+[Example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/book.ex)
+- Migration file
 
-[example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/create_book.ex)
-- `phx.gen` file content included `phx.gen.contextn`,`phx.gen.htmln` and `phx.gen.json`
+[Example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/create_book.ex)
+- `phx.gen` file content included `phx.gen.context`,`phx.gen.html` and `phx.gen.json`
 
-[example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/book.jelixir)
+[Example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/book.jelixir)
 
 ### Input 
 - JSON content: `book.json`
@@ -41,37 +41,37 @@ mix jelixir phx book.json
 # https://hexdocs.pm/phoenix/Mix.Tasks.Phx.Gen.Context.html#content
 
 mix phx.gen.context ModuleBook Book book \
-		code:string \
-		createdAt:string \
-		edition:string \
-		price:integer \
-		publisher:string \
-		title:string \
-		updatedAt:string
+    code:string \
+    createdAt:string \
+    edition:string \
+    price:integer \
+    publisher:string \
+    title:string \
+    updatedAt:string
 
 # Generates controller, views, and context for an HTML resource. 
 # https://hexdocs.pm/phoenix/Mix.Tasks.Phx.Gen.Html.html#content
 
 mix phx.gen.html ModuleBook Book book \
-		code:string \
-		createdAt:string \
-		edition:string \
-		price:integer \
-		publisher:string \
-		title:string \
-		updatedAt:string
+    code:string \
+    createdAt:string \
+    edition:string \
+    price:integer \
+    publisher:string \
+    title:string \
+    updatedAt:string
 
 # Generates controller, views, and context for a JSON resource.
 # https://hexdocs.pm/phoenix/Mix.Tasks.Phx.Gen.Json.html#content
 
 mix phx.gen.json ModuleBook Book book \
-		code:string \
-		createdAt:string \
-		edition:string \
-		price:integer \
-		publisher:string \
-		title:string \
-		updatedAt:string
+    code:string \
+    createdAt:string \
+    edition:string \
+    price:integer \
+    publisher:string \
+    title:string \
+    updatedAt:string
 
 ```
 
@@ -82,13 +82,13 @@ defmodule Book do
   use Ecto.Schema
 
   schema "book" do
-		field(:code, :string)
-		field(:createdAt, :string)
-		field(:edition, :string)
-		field(:price, :integer)
-		field(:publisher, :string)
-		field(:title, :string)
-		field(:updatedAt, :string) 
+    field(:code, :string)
+    field(:createdAt, :string)
+    field(:edition, :string)
+    field(:price, :integer)
+    field(:publisher, :string)
+    field(:title, :string)
+    field(:updatedAt, :string) 
   end
 end
 ```
@@ -101,13 +101,13 @@ defmodule REPO_NAME.Migrations.CreateBookTable do
 
   def change do
     create table("book") do
-			add(:code, :string)
-			add(:createdAt, :string)
-			add(:edition, :string)
-			add(:price, :integer)
-			add(:publisher, :string)
-			add(:title, :string)
-			add(:updatedAt, :string)
+      add(:code, :string)
+      add(:createdAt, :string)
+      add(:edition, :string)
+      add(:price, :integer)
+      add(:publisher, :string)
+      add(:title, :string)
+      add(:updatedAt, :string)
       timestamps()
     end
   end
