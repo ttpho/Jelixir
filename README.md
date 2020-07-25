@@ -1,5 +1,14 @@
 # Jelixir
-convert JSON content to elixir schema file and elixir migration file.
+convert JSON content to elixir files:
+- schema file
+
+[example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/book.ex)
+- migration file
+
+[example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/create_book.ex)
+- `phx.gen` file content included `phx.gen.contextn`,`phx.gen.htmln` and `phx.gen.json`
+
+[example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/book.jelixir)
 
 ### Input 
 - JSON content: `book.json`
