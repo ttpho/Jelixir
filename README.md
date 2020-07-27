@@ -1,6 +1,6 @@
 # Jelixir
 
-![Jelixir](https://user-images.githubusercontent.com/3994863/88547225-a05e2000-d047-11ea-8252-609e3527d253.jpg)
+![Jelixir](https://github.com/ttpho/Jelixir/blob/master/banner.svg)
 
 
 | command | input | output |
