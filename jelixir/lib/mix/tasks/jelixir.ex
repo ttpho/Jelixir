@@ -25,6 +25,8 @@ defmodule Mix.Tasks.Jelixir do
 
   def work(:phx, input_task), do: :phx |> JelixirLib.conver(input_task)
 
+  def work(:schema, input_task), do: :schema |> JelixirLib.conver(input_task)
+
   def work(_task, _input_task) do
     nothing()
   end
