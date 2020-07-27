@@ -1,17 +1,24 @@
 # Jelixir
-Convert JSON content to elixir files:
-- Schema file
 
-[Example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/book.ex)
+| command | input | output |
+| :---         | :---           |:---  |
+| `mix jelixir json book.json`   | `book.json`     | - Created schema file: `jelixir/book.ex`</br>- Created migration file: `jelixir/create_book.ex`    |
+| `mix jelixir phx book.json`     | `book.json`       | Created Phoenix tasks file: `jelixir/book.jelixir`      |
+| `mix jelixir schema book.ex`    |    `book.ex`       | Created Phoenix tasks file: `jelixir/book.jelixir` |
+|      |      |     |
+
+
+1. Convert *JSON* content to elixir files:
+- Schema file
 - Migration file
 
-[Example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/create_book.ex)
-- `phx.gen` file content included `phx.gen.context`,`phx.gen.html` and `phx.gen.json`
+2. Conver *JSON* content to phoenix script content, included `phx.gen.context`,`phx.gen.html` and `phx.gen.json` script:
 
-[Example](https://github.com/ttpho/Jelixir/blob/master/jelixir/jelixir/book.jelixir)
+3. Conver *Schema* content file to phoenix script content, included `phx.gen.context`,`phx.gen.html` and `phx.gen.json` script
+
 
 ### Input 
-- JSON content: `book.json`
+- JSON content: `book.json` for `mix jelixir json book.json`, `mix jelixir phx book.json` 
 
 ```json
 {
@@ -25,11 +32,22 @@ Convert JSON content to elixir files:
 }
 ```
 
-- cmd : 
+- Schema file: `book.ex` for  `mix jelixir schema book.ex`
 
-```
-mix jelixir json book.json
-mix jelixir phx book.json
+```ex
+defmodule Book do
+  use Ecto.Schema
+
+  schema "book" do
+    field(:code, :string)
+    field(:createdAt, :string)
+    field(:edition, :string)
+    field(:price, :integer)
+    field(:publisher, :string)
+    field(:title, :string)
+    field(:updatedAt, :string) 
+  end
+end
 ```
 
 
