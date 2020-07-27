@@ -1,5 +1,8 @@
 # Jelixir
 
+![Jelixir](https://user-images.githubusercontent.com/3994863/88547225-a05e2000-d047-11ea-8252-609e3527d253.jpg)
+
+
 | command | input | output |
 | :---         | :---           |:---  |
 | `mix jelixir json book.json`   | `book.json`     | - Created schema file: `jelixir/book.ex`</br>- Created migration file: `jelixir/create_book.ex`    |
